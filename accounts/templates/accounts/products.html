@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5 style="text-align: center;">Products</h5>
+		</div>
+		<div class="card card-body">
+			<table class="table">
+				<tr>
+					<th>Product</th>
+					<th>Category</th>
+					<th>In Stock</th>
+					<th>Price</th>
+				</tr>
+				{% for obj in products %}
+					<tr>
+					{% if obj is not None %}
+						<td> {{ obj.name }}</td>
+						<td> {{ obj.get_category_display }}</td>
+						<td> {{ obj.stock }}</td>
+						<td> {{ obj.price }}</td>
+					{% endif %}
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+	
+</div>
+
+{% endblock %}

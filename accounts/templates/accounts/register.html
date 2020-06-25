@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+	<hr>
+	<div class="card bg-light">
+		<article class="card-body mx-auto" style="max-width: 600px;">
+			<h3 class="card-title mt-3 text-center">Register</h3>
+			<br>
+			<!-- <p>
+				<a href="" class="btn btn-block btn-twitter"> <i class="fab 	fa-twitter"></i>   Login via Twitter</a>
+				<a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
+			</p>
+			<p class="divider-text">
+        		<span class="bg-light">OR</span>
+    		</p> -->
+			<form method="POST" action=".">
+				{% csrf_token %}
+				<div class="form-group input-group">
+					<div class="input-group-prepend">
+		    			<span class="input-group-text">{{ form.username.label }}</span>
+		 			</div>
+        			{{ form.username }}
+    			</div> <!-- form-group// -->
+    			<div class="form-group input-group">
+    				<div class="input-group-prepend">
+		    			<span class="input-group-text">{{ form.email.label }}</span>
+		 			</div>
+        			{{ form.email }}
+    			</div> <!-- form-group// -->
+    <!-- <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+		</div>
+		<select class="custom-select" style="max-width: 120px;">
+		    <option selected="">+971</option>
+		    <option value="1">+972</option>
+		    <option value="2">+198</option>
+		    <option value="3">+701</option>
+		</select>
+    	<input name="" class="form-control" placeholder="Phone number" type="text">
+    </div> --> <!-- form-group// -->
+    <!-- <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+		</div>
+		<select class="form-control">
+			<option selected=""> Select job type</option>
+			<option>Designer</option>
+			<option>Manager</option>
+			<option>Accaunting</option>
+		</select>
+	</div> --> <!-- form-group end.// -->
+    			<div class="form-group input-group">
+    				<div class="input-group-prepend">
+					    <span class="input-group-text">{{ form.password1.label }}</span>
+					</div>
+					{{ form.password1 }}
+			    </div> <!-- form-group// -->
+			    <div class="form-group input-group">
+			    	<div class="input-group-prepend">
+					    <span class="input-group-text">{{ form.password2.label }} </span>
+					</div>
+					{{ form.password2 }}
+			    </div> <!-- form-group// -->                                      
+			    <div class="form-group">
+			        <button type="submit" name="Submit" class="btn btn-primary btn-block"> Create Account </button>
+			    </div> <!-- form-group// -->
+			    {% for i in messages %}
+			    	<p>{{ i }}</p>
+    			{% endfor %} 
+			    <div class="form-group">
+			    	<p class="text-center">Have an account? <a href="{% url 'accounts:login' %}">Log In</a> </p>
+			    </div> <!-- form-group// -->      
+			    
+			</form>
+		</article>
+	</div> <!-- card.// -->
+
+<!--container end.//-->
+</div>
+
+<!--JS stuff -->
+<script type="text/javascript">
+	var formFields = document.getElementByTagName("input")
+	formFields[0].placeholder='Username...';
+	formFields[0].placeholder='Email...';
+	formFields[0].placeholder='Password...';
+	formFields[0].placeholder='Re-enter Password...';
+	for(let field in formField){
+		formFields[field].className += 'form-control';
+	}
+</script>
+
+
+{% endblock %}
