@@ -1,0 +1,31 @@
+#logo {
+
+}
+
+body {
+	background-color: lightgrey;
+	text-align: center;
+}
+.row {
+	margin: 10px;
+}
+#total-orders {
+	background-color: grey;
+}
+#orders-delivered {
+	background-color: lightgreen;
+}
+#orders-pending {
+	background-color: red;
+}
+#profile-pic {
+	border-width: 5px;
+	border-style: solid;
+	border-color: #000;
+	border-radius: 4px;
+	width: 270px;
+	height: 300px;
+}
+h5 {
+	text-align: center;
+}
