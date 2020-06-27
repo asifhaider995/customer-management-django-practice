@@ -28,6 +28,7 @@ urlpatterns = [
     path('customers/<int:id>', customer_view, name="customers"),
     path('create-order/', create_order, name="create-order"),
     path('update-order/<int:id>', update_order, name="update-order"),
+    path('delete-order/<int:id>', delete_order, name="delete-order"),
     # user permissions
     path('user/', user_view, name="user"),
     path('settings/', user_settings_view, name="user-settings"),

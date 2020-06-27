@@ -71,4 +71,4 @@ class Order(models.Model):
 	status = models.CharField(max_length=3, choices=STATUS, default='PEN')
 
 	def __str__(self):
-		return self.reference
+		return self.product.name

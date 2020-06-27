@@ -25,7 +25,7 @@ SECRET_KEY = '!ga$m5*j7vbh4_ktdcl+(ud66--j2r+k5ju2vscyh8%1+q)wrc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['django-custmgt-live-cli.herokuapp.com','django-site-custmgt.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -39,12 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Myapps
     'accounts.apps.AccountsConfig',
-    'django_filters'
+    'django_filters',
+    'storages'
     
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -84,6 +86,22 @@ DATABASES = {
     }
 }
 
+import dj_database_url
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'DEMO_DB',
+#         'USER': 'postgres',
+#         'PASSWORD': 'system332',
+#         'HOST': 'localhost',
+#         'PORT': '5432'
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -121,6 +139,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+# Static root for Heroku
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/img/'
@@ -135,5 +156,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT =  587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = '<your_email>'
-EMAIL_HOST_PASSWORD = '<email_password>'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
