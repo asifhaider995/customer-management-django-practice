@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<p> Are you sure you want to Delete this order {{ object }}?</p>
+<form action="{% url 'accounts:delete-order' object.id %}" method="POST">
+	{% csrf_token %}
+	<input type="submit" name="Confirm">
+	<a href="{% url 'accounts:home' %}"> Cancel </a>
+</form>
+{% endblock %}

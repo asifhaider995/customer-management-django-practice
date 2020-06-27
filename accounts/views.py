@@ -39,17 +39,14 @@ def register_view(request, *args, **kwargs):
 		if form.is_valid():
 			user = form.save()
 			username = form.cleaned_data.get('username')
+
+			# Removed logic for Signals
 			# group = Group.objects.get(name='customers')
 			# user.groups.add(group)
-
-			
-			# print(user)
-			# print(username)
-			# print(user.username)
-			# print(group)
 			# Customer.objects.create(
 			# 	user = user
 			# )
+
 			messages.success(request, "Account created Successfully for " + form.cleaned_data.get('username'))
 			return redirect('../')
 		else:
@@ -109,15 +106,13 @@ def customer_view(request, id, *args, **kwargs):
 
 @login_required(login_url='accounts:login')
 @allowed_users(allowed_roles=['admins','staffUser','customers'])
-def create_order(request, id, *args, **kwargs):
-	customer = Customer.objects.get(id=id)
-	init_data = {
-		'customer': customer
-	}
-	form = OrderForm(request.POST or None, initial=init_data)
-	if form.is_valid():
-		form.save()
-		return redirect('home/')
+def create_order(request, *args, **kwargs):
+	form = OrderForm()
+	if request.method == 'POST':
+		form = OrderForm(request.POST or None)
+		if form.is_valid():
+			form.save()
+			return redirect('accounts:home')
 	context = {
 		'form' : form
 	}
@@ -127,14 +122,28 @@ def create_order(request, id, *args, **kwargs):
 @allowed_users(allowed_roles=['admins',' staffUser','customers'])
 def update_order(request, id, *args, **kwargs):
 	obj = Order.objects.get(id=id)
-	form = OrderForm(request.POST or None,instance=order)
-	if form.is_valid():
+	form = OrderForm(instance=obj)
+	if request.method == 'POST':
+		form = OrderForm(request.POST or None,instance=obj)
+		if form.is_valid():
 			form.save()
-			return redirect('/')
+			return redirect('accounts:home')
 	context = {
 		'form' : form
 	}
 	return render(request, 'accounts/order_form.html', context)
+
+@login_required(login_url='accounts:login')
+@allowed_users(allowed_roles=['admins',' staffUser','customers'])
+def delete_order(request, id, *args, **kwargs):
+	obj = Order.objects.get(id=id)
+	if request.method == 'POST':
+		obj.delete()
+		return redirect('accounts:home') 
+	context = {
+		'object' : obj
+	}
+	return render(request, 'accounts/delete_order.html', context)
 
 @login_required(login_url='accounts:login')
 @allowed_users(allowed_roles=['customers'])
