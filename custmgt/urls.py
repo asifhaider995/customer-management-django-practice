@@ -22,12 +22,13 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls', namespace='accounts')),
-    path('password_reset/', auth_views.PasswordResetView.as_view(), name="reset_password"),
+    path('', include('accounts.urls', namespace='accounts')),
+    path('password_reset/', auth_views.PasswordResetView.as_view(template_name="accounts/password_reset.html"), name="reset_password"),
     path('password_reset_sent/', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
     path('password_reset_confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
-    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(),name="password_reset_complete"),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name="accounts/password_reset_complete.html"),name="password_reset_complete"),
     
 ]
 
+# Static file directory
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
